@@ -5,20 +5,18 @@ __pycache__/
 *.so
 .pytest_cache/
 
-# Data directory (ignore data files, keep folder structure)
+# Data directory (keep raw excluded, track processed features CSV for cloud deployment)
 data/raw/*
 !data/raw/.gitkeep
 data/processed/*
 !data/processed/.gitkeep
+!data/processed/semiconductor_equipment_features.csv
 
-# Models directory (ignore serialized binary model files, keep metadata and folder structure)
+# Models directory (track serialized model binaries and metadata for cloud deployment)
 models/*
 !models/.gitkeep
 !models/*.json
-*.joblib
-*.pkl
-*.onnx
-*.h5
+!models/*.joblib
 
 # Notebook checkpoints
 .ipynb_checkpoints/

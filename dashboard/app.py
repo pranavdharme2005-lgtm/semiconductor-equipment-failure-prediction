@@ -23,12 +23,33 @@ from src.predict import FailurePredictor
 from src.explainability import EquipmentExplainer
 
 
+def ensure_pipeline_artifacts():
+    """Generates dataset, precomputes features, and trains champion model if missing on cloud runtime."""
+    feat_path = PROJECT_ROOT / "data" / "processed" / "semiconductor_equipment_features.csv"
+    model_path = config.latest_model_path
+
+    if not feat_path.exists() or not model_path.exists():
+        with st.spinner("⚡ Initializing Semiconductor Telemetry Pipeline & Machine Learning Models for Streamlit Cloud..."):
+            from src.data_generator import generate_and_save_dataset
+            from src.preprocessing import EquipmentDataPreprocessor
+            from src.features import EquipmentFeatureEngineer
+            from src.train import ModelTrainerPipeline
+
+            generate_and_save_dataset()
+            preprocessor = EquipmentDataPreprocessor()
+            preprocessor.process_pipeline()
+            fe = EquipmentFeatureEngineer()
+            fe.process_and_save()
+            trainer = ModelTrainerPipeline()
+            trainer.train_and_evaluate_all_models()
+
+
 @st.cache_data(ttl=3600)
 def load_feature_dataset() -> pd.DataFrame:
     """Loads feature dataset from disk."""
+    ensure_pipeline_artifacts()
     feat_path = PROJECT_ROOT / "data" / "processed" / "semiconductor_equipment_features.csv"
     if not feat_path.exists():
-        # Fallback to cleaned CSV if features not available
         feat_path = config.processed_data_path
 
     if not feat_path.exists():
