@@ -1,0 +1,29 @@
+{
+  "operating_threshold": 0.25,
+  "champion_model": "Logistic Regression (Baseline)",
+  "metrics_at_operating_threshold": {
+    "accuracy": 0.932,
+    "precision": 0.2837,
+    "recall": 0.9756,
+    "f1_score": 0.4396,
+    "true_positives": 40,
+    "false_positives": 101,
+    "false_negatives": 1,
+    "true_negatives": 1358,
+    "total_cost_usd": 150500.0
+  },
+  "risk_scoring_bounds": {
+    "low_risk": [
+      0.0,
+      0.19
+    ],
+    "medium_risk": [
+      0.19,
+      0.25
+    ],
+    "high_risk": [
+      0.25,
+      1.0
+    ]
+  }
+}

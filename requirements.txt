@@ -1,0 +1,21 @@
+# Core Data Science & Numerical Computation
+pandas>=2.0.0
+numpy>=1.24.0
+scikit-learn>=1.3.0
+
+# Visualization & Plotting
+matplotlib>=3.7.0
+seaborn>=0.12.0
+
+# Explainable AI (XAI)
+shap>=0.42.0
+
+# Model Persistence & Configuration Management
+joblib>=1.3.0
+pyyaml>=6.0.0
+
+# Web Application & Dashboard
+streamlit>=1.28.0
+
+# Unit Testing & QA Framework
+pytest>=7.4.0

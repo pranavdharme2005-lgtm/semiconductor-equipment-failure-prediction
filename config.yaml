@@ -1,0 +1,67 @@
+# Semiconductor Equipment Failure Prediction Configuration
+
+project:
+  name: "Semiconductor Equipment Failure Prediction"
+  version: "1.0.0"
+  description: "End-to-end Machine Learning system predicting wafer manufacturing equipment failures."
+
+paths:
+  raw_data: "data/raw/semiconductor_equipment_data.csv"
+  processed_data: "data/processed/semiconductor_equipment_cleaned.csv"
+  model_dir: "models/"
+  latest_model_path: "models/equipment_failure_model_latest.joblib"
+  scaler_path: "models/scaler.joblib"
+
+schema:
+  id_column: "equipment_id"
+  timestamp_column: "timestamp"
+  target_column: "failure"
+  sensor_columns:
+    - "temperature"
+    - "pressure"
+    - "vibration"
+    - "voltage"
+    - "current"
+    - "rpm"
+    - "flow_rate"
+  operational_columns:
+    - "runtime_hours"
+    - "maintenance_count"
+
+data_validation:
+  ranges:
+    temperature: [0.0, 150.0]        # °C
+    pressure: [0.0, 25.0]           # PSI
+    vibration: [0.0, 10.0]          # mm/s
+    voltage: [50.0, 300.0]          # V
+    current: [0.0, 100.0]           # A
+    rpm: [0.0, 10000.0]             # RPM
+    flow_rate: [0.0, 200.0]         # L/min
+    runtime_hours: [0.0, 50000.0]   # hours
+    maintenance_count: [0, 100]     # count
+    failure: [0, 1]                 # binary indicator
+
+training:
+  test_size: 0.2
+  random_state: 42
+  cv_folds: 5
+  primary_metric: "roc_auc"
+  model_type: "random_forest"
+  hyperparameters:
+    n_estimators: 100
+    max_depth: 10
+    random_state: 42
+
+risk_scoring:
+  thresholds:
+    low: 0.30
+    medium: 0.70
+  categories:
+    low: "Normal Operating Risk"
+    medium: "Elevated Risk - Inspection Recommended"
+    high: "Critical Risk - Immediate Maintenance Required"
+
+dashboard:
+  title: "Semiconductor Equipment Failure Intelligence"
+  theme: "dark"
+  page_icon: "⚡"

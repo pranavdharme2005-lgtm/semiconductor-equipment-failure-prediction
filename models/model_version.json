@@ -1,0 +1,30 @@
+{
+  "project": "Semiconductor Equipment Failure Prediction",
+  "model_version": "1.0.0",
+  "trained_date": "2026-09-12",
+  "champion_model_architecture": "Logistic Regression (Class Weight: Balanced)",
+  "operating_threshold": 0.25,
+  "test_performance": {
+    "roc_auc": 0.9871,
+    "pr_auc": 0.6875,
+    "recall": 0.9512,
+    "precision": 0.3611,
+    "f1_score": 0.5235,
+    "accuracy": 0.9527,
+    "false_negatives": 2,
+    "false_positives": 69,
+    "true_positives": 39,
+    "true_negatives": 1390
+  },
+  "dataset_spec": {
+    "feature_count": 37,
+    "training_records": 7000,
+    "validation_records": 1500,
+    "test_records": 1500
+  },
+  "artifacts": {
+    "model_path": "models/equipment_failure_model_latest.joblib",
+    "scaler_path": "models/scaler.joblib",
+    "threshold_config_path": "models/threshold_config.json"
+  }
+}
